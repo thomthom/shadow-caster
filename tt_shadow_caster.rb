@@ -204,6 +204,14 @@ module TT::Plugins::ShadowCaster
     def add_shadow( polygon, holes )
       # Create projected shadow.
       se = @shadow.entities
+      
+      # Triangulate - as holes in a face tend to cause odd behaviour when
+      # exploded / intersected. Faces are added or disappear at random.
+      #faces = se.select { |e| e.is_a? ( Sketchup::Face ) }
+      #for face in faces
+      #  triangulate( face )
+      #end
+      
       g = se.add_group
       ge = g.entities
       ge.add_face( polygon )
